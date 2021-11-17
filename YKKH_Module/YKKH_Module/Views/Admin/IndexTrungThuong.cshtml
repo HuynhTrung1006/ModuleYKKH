@@ -1,0 +1,89 @@
+﻿@model IEnumerable<YKKH_Module.Models.TRUNGTHUONG>
+
+@{
+    ViewBag.Title = "IndexTrungThuong";
+    Layout = "~/Views/Shared/_LayoutQT.cshtml";
+    List<YKKH_Module.Models.TRUNGTHUONG> ds = ViewBag.DSTT;
+}
+
+@*<link href="~/Assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Assets/css/materialize.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/normalize.css" rel="stylesheet" />
+    <link href="~/Assets/css/style.min.css" rel="stylesheet" />
+    <link href="~/Assets/DataTables/css/jquery.dataTables.css" rel="stylesheet" />
+    <script src="~/Assets/DataTables/js/jquery.dataTables.js"></script>
+    <script src="~/Assets/DataTables/js/jquery.dataTables.js"></script>
+    <script src="~/Assets/js/materialize.min.js"></script>*@
+
+<script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+<link href="~/Scripts/DataTables/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Scripts/DataTables/dataTables.bootstrap5.min.css" rel="stylesheet" />
+<link href="~/Scripts/DataTables/jquery.dataTables.css" rel="stylesheet" />
+@if (Session["User"] == null)
+{
+    <script>
+        var result = confirm("Không thể truy cập do chưa đăng nhập hệ thống");
+    </script>
+}
+else
+{
+    <div class="container-fluid">
+        <div class="card-header">
+            <h3 class="card-title text-black-50"><b>Quản lý Trúng Thưởng</b></h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped" id="TTTable">
+                <thead>
+                    <tr class="text-center">
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Tên Chủ đề
+                        </th>
+                        <th>
+                            Mã Khách Hàng
+                        </th>
+                        
+                        <th>
+                            Số dự đoán
+                        </th>
+                        <th>
+                            Kết quả
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ds)
+                    {
+                    <tr class="text-center">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.maTT)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.maCD)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.maKH)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.songuoithamgia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.socaudung)
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+       
+    </div>
+   
+        
+
+
+}
+

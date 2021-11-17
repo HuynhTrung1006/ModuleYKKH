@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Module_YKKHModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CAUHOI">
+    <Key>
+      <PropertyRef Name="maCH" />
+    </Key>
+    <Property Name="maCH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tenCH" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="maCD" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CHUDE">
+    <Key>
+      <PropertyRef Name="maCD" />
+    </Key>
+    <Property Name="maCD" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="tenCD" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DAPAN">
+    <Key>
+      <PropertyRef Name="maDA" />
+    </Key>
+    <Property Name="maDA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tenDA" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="dapandung" Type="bit" />
+    <Property Name="maCH" Type="int" />
+  </EntityType>
+  <EntityType Name="DAPANGOPY">
+    <Key>
+      <PropertyRef Name="maDAGY" />
+    </Key>
+    <Property Name="maDAGY" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="gopyKH" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="maCH" Type="int" />
+  </EntityType>
+  <EntityType Name="detail_THI">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="maCD" Type="int" Nullable="false" />
+    <Property Name="maDA" Type="int" Nullable="false" />
+    <Property Name="maKH" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="KHACHHANG">
+    <Key>
+      <PropertyRef Name="maKH" />
+    </Key>
+    <Property Name="maKH" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="tenKH" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="emailKH" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="dienthoaiKH" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Quantri">
+    <Key>
+      <PropertyRef Name="maQT" />
+    </Key>
+    <Property Name="maQT" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="hoten" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="THI">
+    <Key>
+      <PropertyRef Name="maT" />
+    </Key>
+    <Property Name="maT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="maCD" Type="nvarchar" MaxLength="50" />
+    <Property Name="maKH" Type="varchar" MaxLength="50" />
+    <Property Name="songuoithamgia" Type="int" />
+    <Property Name="socaudung" Type="int" />
+  </EntityType>
+  <EntityType Name="TRUNGTHUONG">
+    <Key>
+      <PropertyRef Name="maTT" />
+    </Key>
+    <Property Name="maTT" Type="int" Nullable="false" />
+    <Property Name="maCD" Type="nvarchar" MaxLength="50" />
+    <Property Name="maKH" Type="varchar" MaxLength="50" />
+    <Property Name="songuoithamgia" Type="int" />
+    <Property Name="socaudung" Type="int" />
+  </EntityType>
+  <Association Name="fk_CD_CH">
+    <End Role="CHUDE" Type="Self.CHUDE" Multiplicity="1" />
+    <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CHUDE">
+        <PropertyRef Name="maCD" />
+      </Principal>
+      <Dependent Role="CAUHOI">
+        <PropertyRef Name="maCD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_DA_CH">
+    <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="0..1" />
+    <End Role="DAPAN" Type="Self.DAPAN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAUHOI">
+        <PropertyRef Name="maCH" />
+      </Principal>
+      <Dependent Role="DAPAN">
+        <PropertyRef Name="maCH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_DAGY_CH">
+    <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="0..1" />
+    <End Role="DAPANGOPY" Type="Self.DAPANGOPY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAUHOI">
+        <PropertyRef Name="maCH" />
+      </Principal>
+      <Dependent Role="DAPANGOPY">
+        <PropertyRef Name="maCH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_THI_CD">
+    <End Role="CHUDE" Type="Self.CHUDE" Multiplicity="0..1" />
+    <End Role="THI" Type="Self.THI" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CHUDE">
+        <PropertyRef Name="maCD" />
+      </Principal>
+      <Dependent Role="THI">
+        <PropertyRef Name="maCD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_THI_KH">
+    <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
+    <End Role="THI" Type="Self.THI" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KHACHHANG">
+        <PropertyRef Name="maKH" />
+      </Principal>
+      <Dependent Role="THI">
+        <PropertyRef Name="maKH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Module_YKKHModelStoreContainer">
+    <EntitySet Name="CAUHOI" EntityType="Self.CAUHOI" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CHUDE" EntityType="Self.CHUDE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DAPAN" EntityType="Self.DAPAN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DAPANGOPY" EntityType="Self.DAPANGOPY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="detail_THI" EntityType="Self.detail_THI" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KHACHHANG" EntityType="Self.KHACHHANG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Quantri" EntityType="Self.Quantri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="THI" EntityType="Self.THI" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TRUNGTHUONG" EntityType="Self.TRUNGTHUONG" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_CD_CH" Association="Self.fk_CD_CH">
+      <End Role="CHUDE" EntitySet="CHUDE" />
+      <End Role="CAUHOI" EntitySet="CAUHOI" />
+    </AssociationSet>
+    <AssociationSet Name="fk_DA_CH" Association="Self.fk_DA_CH">
+      <End Role="CAUHOI" EntitySet="CAUHOI" />
+      <End Role="DAPAN" EntitySet="DAPAN" />
+    </AssociationSet>
+    <AssociationSet Name="fk_DAGY_CH" Association="Self.fk_DAGY_CH">
+      <End Role="CAUHOI" EntitySet="CAUHOI" />
+      <End Role="DAPANGOPY" EntitySet="DAPANGOPY" />
+    </AssociationSet>
+    <AssociationSet Name="fk_THI_CD" Association="Self.fk_THI_CD">
+      <End Role="CHUDE" EntitySet="CHUDE" />
+      <End Role="THI" EntitySet="THI" />
+    </AssociationSet>
+    <AssociationSet Name="fk_THI_KH" Association="Self.fk_THI_KH">
+      <End Role="KHACHHANG" EntitySet="KHACHHANG" />
+      <End Role="THI" EntitySet="THI" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

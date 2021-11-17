@@ -1,0 +1,78 @@
+﻿@model IEnumerable<YKKH_Module.Models.CHUDE>
+
+@{
+    Layout = null;
+}
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/css/bootstrap.css" rel="stylesheet" />
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+
+    @{
+        int i = 0;
+        bool flag = true;
+        while (true)
+        {
+            <div class="row">
+                @{
+                    int j = 0;
+                    while (j < 4)
+                    {
+                        if (i * 4 + j >= Model.ToList().Count)
+                        {
+                            flag = false;
+                            break;
+                        }
+                        YKKH_Module.Models.CHUDE item = Model.ToList()[i * 4 + j];
+                        <div class="col-md-3 ">
+                            <div class="card-body border-3">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <b>Mã Chủ Đề:</b>
+                                    </div>
+                                    <div class="col-md-8">
+                                        @item.maCD
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col-md-4">
+                                        <b>Tên Chủ Đề:</b>
+                                    </div>
+                                    <div class="col-md-8">
+                                        @item.tenCD
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+
+                                    </div>
+                                    <div class="col-md-8">
+                                        <a class="btn btn-success"href="@Url.Action("KiemtraKH", new { id= item.maCD})" >Tham Gia</a>
+                                    </div>
+                                </div>
+                                
+
+                            </div>
+                        </div>
+                        j++;
+
+                    }
+                }
+            </div>
+
+            if (flag == false)
+            {
+                break;
+            }
+            i++;
+        }
+    }
+
+</body>
+</html>

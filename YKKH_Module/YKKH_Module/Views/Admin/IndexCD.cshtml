@@ -1,0 +1,118 @@
+﻿@model IEnumerable<YKKH_Module.Models.CHUDE>
+
+@{
+    ViewBag.Title = "IndexCD";
+    Layout = "~/Views/Shared/_LayoutQT.cshtml";
+}
+@if (Session["User"] == null)
+{
+    <script>
+        var result = confirm("Không thể truy cập do chưa đăng nhập hệ thống");
+    </script>
+}
+else
+{
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <link href="~/Scripts/DataTables/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Scripts/DataTables/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="~/Scripts/DataTables/jquery.dataTables.css" rel="stylesheet" />
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title text-black-50">Quản lý Chủ Đề</h3>
+        </div>
+        <h5 style="color:red" class="text-xl-center" >@TempData["note"]</h5>
+        <div class="card-body">
+            <table class="table table-striped" id="myTable">
+                <thead style="background-color: #00bcd4">
+                    <tr>
+                        <th>
+                            Mã Chủ Đề
+                        </th>
+                        <th>
+                            Tên Chủ Đề
+                        </th>
+                        <th>
+                            Tác vụ
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td id="macd">
+                                @Html.DisplayFor(modelItem => item.maCD)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tenCD)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Xóa", "deleteCD", new { id = item.maCD }, new { @class = "btn btn-danger" })|
+                                @Html.ActionLink("Chi Tiết", "formThemCD", new { id = item.maCD }, new { @class = "btn btn-success" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true,
+                "responsive": true,
+            });
+        });
+       
+
+    </script>
+    <hr />
+    <div class="container-fluid">
+        <div class="card-header">
+            <h4 class="card-title text-black-50">Quản lý Chủ Đề</h4>
+        </div>
+        <br />
+        <form action="@Url.Content("/Admin/addCD")" method="post">
+            <div class="row">
+                <div class="col-3 text-center" style="background-color:white"><b>Mã Chủ Đề:</b></div>
+                <div class="col-6" style="background-color:white">
+                    <input name="txtmaCD" class=" form-control" type="text" id="txtmaCD" />
+                </div>
+                <div id="checkmaCD" class="text-center col-3 text-danger" style="background-color:white"></div>
+            </div>
+            <div class="row">
+                <div class="col-3 text-center" style="background-color:white"><b>Tên Chủ Đề:</b></div>
+                <div class="col-6" style="background-color:white">
+                    <input name="txttenCD" class=" form-control" type="text" />
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-2 " style="background-color:white"></div>
+                <div class="col-2" style="background-color:white">
+                    <input type="submit" class="btn btn-success" value="Lưu" />
+                </div>
+                <div class="col-8" style="background-color:white"></div>
+            </div>
+        </form>
+
+
+    </div>
+    <script>
+        $().ready(function () {
+            $('#txtmaCD').change(function () {
+                var ma = $('#txtmaCD').val();
+                var url = '/Admin/checkCD/' + ma;
+                $.get(url, function (data) { $('#checkmaCD').html(data); });
+            })
+        })
+    </script>
+
+
+}

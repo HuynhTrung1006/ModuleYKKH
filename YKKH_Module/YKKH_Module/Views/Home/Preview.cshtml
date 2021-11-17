@@ -1,0 +1,31 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Preview</title>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="~/Assets/css/normalize.css">
+    <link rel="stylesheet" href="~/Assets/css/style.min.css">
+    <link rel="stylesheet" href="~/Assets/css/font-awesome.css">
+    <link rel="stylesheet" href="~/Assets/css/materialize.min.css">
+    <script src="~/Assets/js/materialize.min.js"></script>
+</head>
+<body>
+    <div>
+        <div class="title-content">
+            <span class="title" style="padding-left: 115px;">CẢM ƠN BẠN ĐÃ ĐÒNG Ý THAM GIA</span>
+            <span class="title" style="padding-left: 115px;">CHỦ ĐỀ CỦA BẠN CHỌN: @ViewBag.maCDKH</span>
+            <span class="title" style="padding-left: 115px;">SỐ CÂU ĐÚNG CỦA BẠN: <B>@ViewBag.KQKH</B></span>
+        </div>
+        <div class="img-fluid">
+            <img src="~/Images/LogoSPC_doc.png" />
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+﻿@model IEnumerable<YKKH_Module.Models.THI>
+
+@{
+    ViewBag.Title = "IndexKH";
+    Layout = "~/Views/Shared/_LayoutQT.cshtml";
+}
+<link href="~/Assets/css/font-awesome.css" rel="stylesheet" />
+<link href="~/Assets/css/materialize.min.css" rel="stylesheet" />
+<link href="~/Assets/css/normalize.css" rel="stylesheet" />
+<link href="~/Assets/css/style.min.css" rel="stylesheet" />
+<link href="~/Assets/DataTables/css/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Assets/DataTables/js/jquery.dataTables.js"></script>
+<script src="~/Assets/DataTables/js/jquery.dataTables.js"></script>
+<script src="~/Assets/js/materialize.min.js"></script>
+@if (Session["User"] == null)
+{
+    <script>
+        var result = confirm("Không thể truy cập do chưa đăng nhập hệ thống");
+    </script>
+}
+else
+{
+    <div class="container-fluid">
+        <div class="card-header">
+            <h3 class="card-title text-black-50">Quản lý Khách Hàng Tham Gia</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped" id="myTable">
+                <thead>
+                    <tr class="text-center">
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Tên Chủ đề
+                        </th>
+                        <th>
+                            Tên Khách Hàng
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            SDT
+                        </th>
+                        <th>
+                            Số dự đoán
+                        </th>
+                        <th>
+                            Kết quả
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="text-center">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.maT)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CHUDE.tenCD)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.KHACHHANG.tenKH)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.KHACHHANG.emailKH)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.KHACHHANG.dienthoaiKH)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.songuoithamgia)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.socaudung)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Trúng Thưởng", "actionTT", new { id = item.maT }, new { @class = "btn btn-danger" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+       
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true,
+                "responsive": true,
+            });
+        });
+    </script>
+
+}
+

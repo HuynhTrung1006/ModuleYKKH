@@ -1,0 +1,186 @@
+﻿@model IEnumerable<YKKH_Module.Models.CAUHOI>
+
+@{
+    Layout = null;
+    int dem = 0; int demgy = 0;
+    List<YKKH_Module.CustomModel.cauhoitracnghiem> chtt = ViewBag.chtt;
+
+    List<YKKH_Module.Models.CAUHOI> chgy = ViewBag.chgy;
+    dem = chtt.Count();
+    demgy = chgy.Count();
+    List<YKKH_Module.CustomModel.TraLoiTT> ListDAKH = new List<YKKH_Module.CustomModel.TraLoiTT>();
+    List<YKKH_Module.CustomModel.TraLoiGY> ListGYKH = new List<YKKH_Module.CustomModel.TraLoiGY>();
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>chonChuDe</title>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="~/Assets/css/normalize.css">
+    <link rel="stylesheet" href="~/Assets/css/style.min.css">
+    <link rel="stylesheet" href="~/Assets/css/font-awesome.css">
+    <link rel="stylesheet" href="~/Assets/css/materialize.min.css">
+    <script src="~/Assets/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div class="title-content">
+        <span class="title" style="padding-left: 115px;">CẢM ƠN BẠN ĐÃ ĐÒNG Ý THAM GIA</span>
+        <span class="title" style="padding-left: 115px;">CHỦ ĐỀ CỦA BẠN CHỌN: @ViewBag.tenCD</span>
+    </div>
+    <div class="content row col s12 reset-margin" style="padding:0;">
+
+        <div class="testing-right">
+            @{
+                int x = 1;
+                <input id="arr1" name="arr1" value="@dem" hidden />
+                <input id="arr2" name="arr2" value="@demgy" hidden />
+                foreach (var item in chtt)
+                {
+                    <div id="quest-@x" class="item-quest">
+                        <div class="quest-title">Câu @x :</div>
+                        <div class="quest-content">
+                            <span>@item.CAUHOI.tenCH</span>
+                        </div>
+
+                        <div class="quest-answer">
+                            <form>
+                                <p>
+                                    <label>
+                                        <input id="@item.listDapAn[0].maDA" name="traloi+@x" type="radio" value="@item.listDapAn[0].maDA" />
+                                        <span>@item.listDapAn[0].tenDA</span>
+
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input id="@item.listDapAn[1].maDA" name="traloi+@x" type="radio" value="@item.listDapAn[1].maDA" />
+                                        <span>@item.listDapAn[1].tenDA</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input id="@item.listDapAn[2].maDA" name="traloi+@x" type="radio" value="@item.listDapAn[2].maDA" />
+                                        <span>@item.listDapAn[2].tenDA</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input id="@item.listDapAn[3].maDA" name="traloi+@x" type="radio" value="@item.listDapAn[3].maDA" />
+                                        <span>@item.listDapAn[3].tenDA</span>
+                                    </label>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                    x = x + 1;
+                }
+                foreach (var items in chgy)
+                {
+                    <div id="quest-@x" class="item-quest">
+                        <div class="quest-title">Câu @x :</div>
+                        <div class="quest-content">
+                            <span>@items.tenCH</span>
+                            <input type="text" name="traloi+@x" />
+                            <input id="maCH+@x" type="text" name="traloi+@x" value="@items.maCH" hidden />
+                        </div>
+                    </div>
+                }
+            }
+            <div class="container-fluid">
+                <label style="text-align:left"><b>Dự Đoán Số Người Có Cùng Ý Kiến Với Bạn</b></label>
+                <input class="form-group" name="songuoidudoan" id="songuoidudoan" type="number" />
+                <input hidden name="tenCD" id="tenCD" value="@ViewBag.maCD" />
+            </div>
+           @* <button onclick="myFunction()">Check</button>*@
+            <a id="luu" class="btn flat" style="margin-left: 40%;width: 30%;margin-top: 20px;margin-bottom: 10px;" onclick="myFunction()">Lưu</a>
+        </div>
+
+    </div>
+    <script>
+        function myFunction() {
+            document.getElementById("luu").disabled = true;
+            var rates1 = document.querySelector("input[name='arr1']").value;// lấy số lượng câu hỏi ví du như có 2 câu thì sẽ ra 2, 3 câu sẽ là 3
+            var converInt = parseInt(rates1)
+            var arrDA = [];
+            if (converInt) {
+                for (var i = 0; i < converInt; i++) { //chạy hết  số lượng câu hỏi
+                    var rates = document.getElementsByName('traloi+' + (i + 1)); //lấy dữ liệu nào có checked thì push vào mảng arrDA
+                    console.log('traloi+' + (i + 1));
+                    for (var j = 0; j < 4; j++) {
+                        if (rates[j].checked) {
+                            var rate_value = rates[j].value;
+                            arrDA.push(rate_value)
+                            console.log(rate_value + "value")
+                            var a = rate_value;
+                            var data = { id: a }
+                            var url = "@Url.Action("addSessionTT")";
+                            $.post(url, data);
+                        } 
+                    }
+                }
+
+            }
+            var rates2 = document.querySelector("input[name='arr2']").value;
+            var convertInt2 = parseInt(rates2);
+            console.log(123)
+            if (convertInt2) {
+                
+                for (var i = 0; i < convertInt2; i++) {
+
+                    var ratesgy = document.getElementsByName('traloi+' + (i + converInt + 1));
+                    
+                    console.log('traloi+' + (i + converInt + 1));
+                    console.log(ratesgy[0]);
+
+                    if (ratesgy[0].value) {
+                        var ratesg = ratesgy[0].value;
+                        arrDA.push(ratesg)
+                        console.log(ratesgy.value + "valueGY")
+                        var id = document.getElementById('maCH+' + (i + converInt + 1)).value;
+                        console.log(id)
+                        var value = ratesgy[0].value
+                        var data = {
+                            id: id,
+                            value:value
+                        }
+
+                        var url = "@Url.Action("addSessionGY")";
+                        $.post(url, data);
+                    }
+                }
+            }
+            var songuoi = document.getElementById("songuoidudoan").value
+            var tencd = document.getElementById("tenCD").value
+            var data = {
+                songuoidudoan: songuoi,
+                tenCD:tencd
+            }
+            var aurl = "@Url.Action("AddSubmitKH")";
+            $.post(aurl, data)
+            
+            //$("input[type='radio'][name='traloi+1']:checked").val();
+            //if (document.querySelector('input[name="traloi+1"]:checked') != null) {
+             //   var a1 = document.querySelector('input[name="traloi+1"]').value;
+            //    alert(a1 + "a1");
+            //}
+            
+
+            
+            
+        }
+        
+    
+    </script>
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Module_YKKHModelStoreContainer" CdmEntityContainer="Module_YKKHEntities">
+    <EntitySetMapping Name="CAUHOIs">
+      <EntityTypeMapping TypeName="Module_YKKHModel.CAUHOI">
+        <MappingFragment StoreEntitySet="CAUHOI">
+          <ScalarProperty Name="maCH" ColumnName="maCH" />
+          <ScalarProperty Name="tenCH" ColumnName="tenCH" />
+          <ScalarProperty Name="maCD" ColumnName="maCD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CauHoi_DapAn">
+      <EntityTypeMapping TypeName="Module_YKKHModel.CauHoi_DapAn">
+        <MappingFragment StoreEntitySet="CauHoi_DapAn">
+          <ScalarProperty Name="TraLoiID" ColumnName="TraLoiID" />
+          <ScalarProperty Name="CauHoiID" ColumnName="CauHoiID" />
+          <ScalarProperty Name="codeTraLoi" ColumnName="codeTraLoi" />
+          <ScalarProperty Name="NoiDungTraLoi" ColumnName="NoiDungTraLoi" />
+          <ScalarProperty Name="CodeCauHoi" ColumnName="CodeCauHoi" />
+          <ScalarProperty Name="selectTraLoi" ColumnName="selectTraLoi" />
+          <ScalarProperty Name="GroupTraLoi" ColumnName="GroupTraLoi" />
+          <ScalarProperty Name="CodeGroupTraLoi" ColumnName="CodeGroupTraLoi" />
+          <ScalarProperty Name="StoreCauHoi" ColumnName="StoreCauHoi" />
+          <ScalarProperty Name="StoreTraLoi" ColumnName="StoreTraLoi" />
+          <ScalarProperty Name="ContentTraLoi" ColumnName="ContentTraLoi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CHUDEs">
+      <EntityTypeMapping TypeName="Module_YKKHModel.CHUDE">
+        <MappingFragment StoreEntitySet="CHUDE">
+          <ScalarProperty Name="maCD" ColumnName="maCD" />
+          <ScalarProperty Name="tenCD" ColumnName="tenCD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChuDe_CauHoi">
+      <EntityTypeMapping TypeName="Module_YKKHModel.ChuDe_CauHoi">
+        <MappingFragment StoreEntitySet="ChuDe_CauHoi">
+          <ScalarProperty Name="CauhoiID" ColumnName="CauhoiID" />
+          <ScalarProperty Name="maCD" ColumnName="maCD" />
+          <ScalarProperty Name="CodeCauHoi" ColumnName="CodeCauHoi" />
+          <ScalarProperty Name="NoiDungCauHoi" ColumnName="NoiDungCauHoi" />
+          <ScalarProperty Name="StoreCauHoi" ColumnName="StoreCauHoi" />
+          <ScalarProperty Name="StoreTraLoi" ColumnName="StoreTraLoi" />
+          <ScalarProperty Name="SoThuTu" ColumnName="SoThuTu" />
+          <ScalarProperty Name="GroupTraLoi" ColumnName="GroupTraLoi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DAPANs">
+      <EntityTypeMapping TypeName="Module_YKKHModel.DAPAN">
+        <MappingFragment StoreEntitySet="DAPAN">
+          <ScalarProperty Name="maDA" ColumnName="maDA" />
+          <ScalarProperty Name="tenDA" ColumnName="tenDA" />
+          <ScalarProperty Name="dapandung" ColumnName="dapandung" />
+          <ScalarProperty Name="maCH" ColumnName="maCH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DAPANGOPies">
+      <EntityTypeMapping TypeName="Module_YKKHModel.DAPANGOPY">
+        <MappingFragment StoreEntitySet="DAPANGOPY">
+          <ScalarProperty Name="maDAGY" ColumnName="maDAGY" />
+          <ScalarProperty Name="gopyKH" ColumnName="gopyKH" />
+          <ScalarProperty Name="maCH" ColumnName="maCH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KHACHHANGs">
+      <EntityTypeMapping TypeName="Module_YKKHModel.KHACHHANG">
+        <MappingFragment StoreEntitySet="KHACHHANG">
+          <ScalarProperty Name="maKH" ColumnName="maKH" />
+          <ScalarProperty Name="tenKH" ColumnName="tenKH" />
+          <ScalarProperty Name="emailKH" ColumnName="emailKH" />
+          <ScalarProperty Name="dienthoaiKH" ColumnName="dienthoaiKH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Quantris">
+      <EntityTypeMapping TypeName="Module_YKKHModel.Quantri">
+        <MappingFragment StoreEntitySet="Quantri">
+          <ScalarProperty Name="maQT" ColumnName="maQT" />
+          <ScalarProperty Name="hoten" ColumnName="hoten" />
+          <ScalarProperty Name="password" ColumnName="password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="THIs">
+      <EntityTypeMapping TypeName="Module_YKKHModel.THI">
+        <MappingFragment StoreEntitySet="THI">
+          <ScalarProperty Name="maT" ColumnName="maT" />
+          <ScalarProperty Name="maCD" ColumnName="maCD" />
+          <ScalarProperty Name="maKH" ColumnName="maKH" />
+          <ScalarProperty Name="maCH" ColumnName="maCH" />
+          <ScalarProperty Name="maDA" ColumnName="maDA" />
+          <ScalarProperty Name="maDAGY" ColumnName="maDAGY" />
+          <ScalarProperty Name="songuoithamgia" ColumnName="songuoithamgia" />
+          <ScalarProperty Name="socaudung" ColumnName="socaudung" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TRUNGTHUONGs">
+      <EntityTypeMapping TypeName="Module_YKKHModel.TRUNGTHUONG">
+        <MappingFragment StoreEntitySet="TRUNGTHUONG">
+          <ScalarProperty Name="maTT" ColumnName="maTT" />
+          <ScalarProperty Name="maCD" ColumnName="maCD" />
+          <ScalarProperty Name="maKH" ColumnName="maKH" />
+          <ScalarProperty Name="maCH" ColumnName="maCH" />
+          <ScalarProperty Name="maDA" ColumnName="maDA" />
+          <ScalarProperty Name="maDAGY" ColumnName="maDAGY" />
+          <ScalarProperty Name="songuoithamgia" ColumnName="songuoithamgia" />
+          <ScalarProperty Name="socaudung" ColumnName="socaudung" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

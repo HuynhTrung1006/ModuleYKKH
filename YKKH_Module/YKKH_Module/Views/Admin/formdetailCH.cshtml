@@ -1,0 +1,102 @@
+﻿@using YKKH_Module.Models
+
+@{
+    ViewBag.Title = "formdetailCH";
+    Layout = "~/Views/Shared/_LayoutQT.cshtml";
+    CAUHOI cauhoi = ViewBag.cauhoi;
+    //ViewBag.cauhoi = cauhoi;
+    DAPAN dapandung = ViewBag.dapandung;
+    DAPAN caA = ViewBag.cauA;
+    DAPAN caB = ViewBag.cauB;
+    DAPAN caC = ViewBag.cauC;
+    DAPAN caD = ViewBag.cauD;
+}
+<link href="~/Assets/css/font-awesome.css" rel="stylesheet" />
+<link href="~/Assets/css/materialize.min.css" rel="stylesheet" />
+<link href="~/Assets/css/normalize.css" rel="stylesheet" />
+<link href="~/Assets/css/style.min.css" rel="stylesheet" />
+<link href="~/Assets/DataTables/css/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Assets/DataTables/js/jquery.dataTables.js"></script>
+<script src="~/Assets/DataTables/js/jquery.dataTables.js"></script>
+<script src="~/Assets/js/materialize.min.js"></script>
+
+<div class="title-content">
+    <a class="title" href="@Url.Content("/Admin/formThemCD/"+cauhoi.maCD)">Quay Lại</a>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div id="add_normal" class="col s12">
+            @using (Html.BeginForm("EditQuestion", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+            {
+                <div hidden> <input type="text" name="mach" value="@cauhoi.maCH" /></div>
+                <div class="input-field">
+                    <textarea name="content" class="materialize-textarea" required>@cauhoi.tenCH</textarea>
+                    <label for="content">Nội Dung Câu Hỏi <span class="failed">(*)</span></label>
+                </div>
+
+                <div class="input-field">
+                    <textarea name="answer_a" id="answer_a" class="materialize-textarea" onchange="get_val(this.id)" required>@caA.tenDA</textarea>
+                    <label for="answer_a">Đáp Án A <span class="failed">(*)</span></label>
+                </div>
+                <div class="input-field">
+                    <textarea name="answer_b" id="answer_b" class="materialize-textarea" onchange="get_val(this.id)" required>@caB.tenDA</textarea>
+                    <label for="answer_b">Đáp Án B <span class="failed">(*)</span></label>
+                </div>
+                <div class="input-field">
+                    <textarea name="answer_c" id="answer_c" class="materialize-textarea" onchange="get_val(this.id)" required>@caC.tenDA</textarea>
+                    <label for="answer_c">Đáp Án C <span class="failed">(*)</span></label>
+                </div>
+                <div class="input-field">
+                    <textarea name="answer_d" id="answer_d" class="materialize-textarea" onchange="get_val(this.id)" required>@caD.tenDA</textarea>
+                    <label for="answer_d">Đáp Án D <span class="failed">(*)</span></label>
+                </div>
+                <div class="input-field">
+                    <select name="correct_answer">
+                        @if (caA.Equals(dapandung))
+                        {
+                            <option value="@caA.tenDA" id="val_answer_a" selected>A</option>
+                        }
+                        else
+                        {
+                            <option value="@caA.tenDA" id="val_answer_a">A</option>
+                        }
+                        @if (caB.Equals(dapandung))
+                        {
+                            <option value="@caB.tenDA" id="val_answer_b" selected>B</option>
+                        }
+                        else
+                        {
+                            <option value="@caB.tenDA" id="val_answer_b">B</option>
+                        }
+                        @if (caC.Equals(dapandung))
+                        {
+                            <option value="@caC.tenDA" id="val_answer_c" selected>C</option>
+                        }
+                        else
+                        {
+                            <option value="@caC.tenDA" id="val_answer_c">C</option>
+                        }
+                        @if (caD.Equals(dapandung))
+                        {
+                            <option value="@caD.tenDA" id="val_answer_d" selected>D</option>
+                        }
+                        else
+                        {
+                            <option value="@caD.tenDA" id="val_answer_d">D</option>
+                        }
+                    </select>
+                    <label>Đáp Án Đúng</label>
+                </div>
+                <button type="submit" class="btn full-width" id="add-question" name="add-question">Sửa</button>
+            }
+        </div>
+    </div>
+</div>
+<script>
+    $('select').select();
+    function get_val(id) {
+        var answer = $("#" + id).val();
+        $("#val_" + id).val(answer);
+    }
+</script>

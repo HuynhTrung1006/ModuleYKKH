@@ -1,0 +1,41 @@
+﻿@model YKKH_Module.Models.Quantri
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Đăng nhập</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/css/login.css" rel="stylesheet" type="text/css" />
+</head>
+<body>  
+        <div class="container">
+            <div class="login-form">
+                @using (Html.BeginForm("loginadmin", "Home", FormMethod.Post))
+                {
+                    <h1>Đăng nhập vào EVNSPC</h1>
+                    <div class="input-box">
+                        <i></i>
+                        @*<input type="text" placeholder="Điền mã quản trị ">*@
+                        @Html.TextBoxFor(model => model.maQT, new { @class = "form-control", @placeholder = "Điền mã quản trị", @autofocus = "autoforcus" })
+                    </div>
+                    <div class="input-box">
+                        <i></i>
+                        @*<input type="password" placeholder="Điền mật khẩu">*@
+                        @Html.PasswordFor(model => model.password, new { @class = "form-control", @placeholder = "Mật khẩu", @autofocus = "autofocus" })
+                        @Html.ValidationMessage("password", "", new { @class = "text-danger" })
+                    </div>
+                    <div class="btn-box">
+                        <button type="submit">
+                            Đăng nhập
+                        </button>
+                    </div>
+                    
+                }
+
+            </div>
+        </div>
+    
+   
+</body>
+</html>

@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Module_YKKHModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CAUHOI">
+    <Key>
+      <PropertyRef Name="maCH" />
+    </Key>
+    <Property Name="maCH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tenCH" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="maCD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="CHUDE" Relationship="Self.fk_CD_CH" FromRole="CAUHOI" ToRole="CHUDE" />
+    <NavigationProperty Name="DAPANs" Relationship="Self.fk_DA_CH" FromRole="CAUHOI" ToRole="DAPAN" />
+    <NavigationProperty Name="DAPANGOPies" Relationship="Self.fk_DAGY_CH" FromRole="CAUHOI" ToRole="DAPANGOPY" />
+  </EntityType>
+  <EntityType Name="CHUDE">
+    <Key>
+      <PropertyRef Name="maCD" />
+    </Key>
+    <Property Name="maCD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="tenCD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="CAUHOIs" Relationship="Self.fk_CD_CH" FromRole="CHUDE" ToRole="CAUHOI" />
+    <NavigationProperty Name="THIs" Relationship="Self.fk_THI_CD" FromRole="CHUDE" ToRole="THI" />
+  </EntityType>
+  <EntityType Name="DAPAN">
+    <Key>
+      <PropertyRef Name="maDA" />
+    </Key>
+    <Property Name="maDA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tenDA" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="dapandung" Type="Boolean" />
+    <Property Name="maCH" Type="Int32" />
+    <NavigationProperty Name="CAUHOI" Relationship="Self.fk_DA_CH" FromRole="DAPAN" ToRole="CAUHOI" />
+  </EntityType>
+  <EntityType Name="DAPANGOPY">
+    <Key>
+      <PropertyRef Name="maDAGY" />
+    </Key>
+    <Property Name="maDAGY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="gopyKH" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="maCH" Type="Int32" />
+    <NavigationProperty Name="CAUHOI" Relationship="Self.fk_DAGY_CH" FromRole="DAPANGOPY" ToRole="CAUHOI" />
+  </EntityType>
+  <EntityType Name="detail_THI">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="maCD" Type="Int32" Nullable="false" />
+    <Property Name="maDA" Type="Int32" Nullable="false" />
+    <Property Name="maKH" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="KHACHHANG">
+    <Key>
+      <PropertyRef Name="maKH" />
+    </Key>
+    <Property Name="maKH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tenKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="emailKH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="dienthoaiKH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="THIs" Relationship="Self.fk_THI_KH" FromRole="KHACHHANG" ToRole="THI" />
+  </EntityType>
+  <EntityType Name="Quantri">
+    <Key>
+      <PropertyRef Name="maQT" />
+    </Key>
+    <Property Name="maQT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="hoten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="THI">
+    <Key>
+      <PropertyRef Name="maT" />
+    </Key>
+    <Property Name="maT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="maCD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="maKH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="songuoithamgia" Type="Int32" />
+    <Property Name="socaudung" Type="Int32" />
+    <NavigationProperty Name="CHUDE" Relationship="Self.fk_THI_CD" FromRole="THI" ToRole="CHUDE" />
+    <NavigationProperty Name="KHACHHANG" Relationship="Self.fk_THI_KH" FromRole="THI" ToRole="KHACHHANG" />
+  </EntityType>
+  <EntityType Name="TRUNGTHUONG">
+    <Key>
+      <PropertyRef Name="maTT" />
+    </Key>
+    <Property Name="maTT" Type="Int32" Nullable="false" />
+    <Property Name="maCD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="maKH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="songuoithamgia" Type="Int32" />
+    <Property Name="socaudung" Type="Int32" />
+  </EntityType>
+  <Association Name="fk_CD_CH">
+    <End Role="CHUDE" Type="Self.CHUDE" Multiplicity="1" />
+    <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CHUDE">
+        <PropertyRef Name="maCD" />
+      </Principal>
+      <Dependent Role="CAUHOI">
+        <PropertyRef Name="maCD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_DA_CH">
+    <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="0..1" />
+    <End Role="DAPAN" Type="Self.DAPAN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAUHOI">
+        <PropertyRef Name="maCH" />
+      </Principal>
+      <Dependent Role="DAPAN">
+        <PropertyRef Name="maCH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_DAGY_CH">
+    <End Role="CAUHOI" Type="Self.CAUHOI" Multiplicity="0..1" />
+    <End Role="DAPANGOPY" Type="Self.DAPANGOPY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAUHOI">
+        <PropertyRef Name="maCH" />
+      </Principal>
+      <Dependent Role="DAPANGOPY">
+        <PropertyRef Name="maCH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_THI_CD">
+    <End Role="CHUDE" Type="Self.CHUDE" Multiplicity="0..1" />
+    <End Role="THI" Type="Self.THI" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CHUDE">
+        <PropertyRef Name="maCD" />
+      </Principal>
+      <Dependent Role="THI">
+        <PropertyRef Name="maCD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_THI_KH">
+    <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
+    <End Role="THI" Type="Self.THI" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KHACHHANG">
+        <PropertyRef Name="maKH" />
+      </Principal>
+      <Dependent Role="THI">
+        <PropertyRef Name="maKH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Module_YKKHEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CAUHOIs" EntityType="Self.CAUHOI" />
+    <EntitySet Name="CHUDEs" EntityType="Self.CHUDE" />
+    <EntitySet Name="DAPANs" EntityType="Self.DAPAN" />
+    <EntitySet Name="DAPANGOPies" EntityType="Self.DAPANGOPY" />
+    <EntitySet Name="detail_THI" EntityType="Self.detail_THI" />
+    <EntitySet Name="KHACHHANGs" EntityType="Self.KHACHHANG" />
+    <EntitySet Name="Quantris" EntityType="Self.Quantri" />
+    <EntitySet Name="THIs" EntityType="Self.THI" />
+    <EntitySet Name="TRUNGTHUONGs" EntityType="Self.TRUNGTHUONG" />
+    <AssociationSet Name="fk_CD_CH" Association="Self.fk_CD_CH">
+      <End Role="CHUDE" EntitySet="CHUDEs" />
+      <End Role="CAUHOI" EntitySet="CAUHOIs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_DA_CH" Association="Self.fk_DA_CH">
+      <End Role="CAUHOI" EntitySet="CAUHOIs" />
+      <End Role="DAPAN" EntitySet="DAPANs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_DAGY_CH" Association="Self.fk_DAGY_CH">
+      <End Role="CAUHOI" EntitySet="CAUHOIs" />
+      <End Role="DAPANGOPY" EntitySet="DAPANGOPies" />
+    </AssociationSet>
+    <AssociationSet Name="fk_THI_CD" Association="Self.fk_THI_CD">
+      <End Role="CHUDE" EntitySet="CHUDEs" />
+      <End Role="THI" EntitySet="THIs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_THI_KH" Association="Self.fk_THI_KH">
+      <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
+      <End Role="THI" EntitySet="THIs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

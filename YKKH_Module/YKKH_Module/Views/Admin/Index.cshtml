@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutQT.cshtml";
+}
+@if (Session["User"] == null)
+{
+    <script>
+        var result = confirm("Không thể truy cập do chưa đăng nhập hệ thống");
+    </script>
+}
+else
+{
+<h2>TRANG QUẢN TRỊ WEBSITE</h2>
+}
+

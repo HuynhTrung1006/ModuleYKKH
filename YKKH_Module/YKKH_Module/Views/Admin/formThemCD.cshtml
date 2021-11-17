@@ -1,0 +1,210 @@
+﻿@model IEnumerable<YKKH_Module.Models.CAUHOI>
+
+@{
+    ViewBag.Title = "formThemCD";
+    Layout = "~/Views/Shared/_LayoutQT.cshtml";
+
+    List<YKKH_Module.Models.DAPAN> ds = ViewBag.dsDA;
+}
+<link href="~/Assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Assets/css/materialize.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/normalize.css" rel="stylesheet" />
+    <link href="~/Assets/css/style.min.css" rel="stylesheet" />
+<link href="~/Assets/DataTables/css/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Assets/DataTables/js/jquery.dataTables.js"></script>
+<script src="~/Assets/DataTables/js/jquery.dataTables.js"></script>
+<script src="~/Assets/js/materialize.min.js"></script>
+
+<div class="title">
+    <h2><i>Quản Lý Câu Hỏi</i></h2>
+    @if (TempData["status_id"] != null && (bool)TempData["status_id"])
+    {
+        <span class="timer success">@TempData["status"]</span>
+    }
+    else
+    {
+        <span class="timer failed">@TempData["status"]</span>
+    }
+</div>
+<div id="maCD" hidden>@ViewBag.maCD</div>
+@if (Session["User"] == null)
+{
+    <script>
+        var result = confirm("Không thể truy cập do chưa đăng nhập hệ thống");
+    </script>
+}
+else
+{
+    <div class="container-fluid content">
+
+        <table class="striped centered" id="cauhoiTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Câu Hỏi</th>
+                    <th>Tác vụ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+                <tr>
+                    @*<td>@Html.DisplayFor(modelItem => item.maCH,new { id="mach" })</td>*@
+                    <td id="txtmach">@item.maCH</td>
+                    <td>@Html.DisplayFor(modelItem => item.tenCH)</td>
+                    <td>
+                        @{
+                            int ck = ds.Where(x => x.maCH.Equals(item.maCH)).Count();
+                            if (ck > 0)
+                            {
+                                @Html.ActionLink("Đáp Án", "formdetailCH", new { id = item.maCH }, new { @class = "btn btn-info" })
+                            }
+                        }
+                                @*@Html.ActionLink("Đáp Án", "formdetailCH", new { id = item.maCH }, new { @class = "btn btn-info" })*@
+                                @*<button class="btn btn-info" id="btnCTDA" type="submit">Đáp án</button>*@
+                        @Html.ActionLink("Xóa", "DeleteCH", new { id = item.maCH, mach = item.maCD }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+
+                }
+            </tbody>
+        </table>
+        <div id="idCTDA"></div>
+    </div>
+
+    <script>
+        $('#cauhoiTable').DataTable({
+            "language": {
+                "paging": true,
+                "lengthMenu": "Hiển thị _MENU_",
+                "zeroRecords": "Không tìm thấy",
+                "info": "Hiển thị trang _PAGE_/_PAGES_",
+                "infoEmpty": "Không có dữ liệu",
+                "emptyTable": "Không có dữ liệu",
+                "infoFiltered": "(tìm kiếm trong tất cả _MAX_ mục)",
+                "sSearch": "Tìm kiếm",
+                "paginate": {
+                    "first": "Đầu",
+                    "last": "Cuối",
+                    "next": "Sau",
+                    "previous": "Trước"
+                }
+            }
+        });
+
+        $().ready(function () {
+            $('#btnCTDA').click(function () {
+                var ma = $('#mach').val();
+                alert(ma);
+                @*var url = '/Admin/formdetailCH/' + ma;
+                $.get(url, function (data) { $('#idCTDA').html(data); });*@
+            })
+        })
+    </script>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Bộ trắc nghiệm câu hỏi</h3>
+        </div>
+    </div>
+    <div class="content">
+        <div class="row" style="padding-top: 10px">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s6"><a href="#add_normal" class="active" style="color: #02796e; font-weight: bold;">Thêm Câu Hỏi</a></li>
+                    <li class="tab col s6"><a href="#_add_via_file" style="color: #02796e; font-weight: bold;">Thêm Câu Hỏi Góp Ý</a></li>
+                </ul>
+            </div>
+            <div id="add_normal" class="col s12">
+                @using (Html.BeginForm("AddQuestion", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data"}))
+                {
+                    <div hidden> <input type="text" name="macd" value="@ViewBag.maCD" /></div>
+                    <div class="input-field">
+                        <textarea name="content" class="materialize-textarea" required></textarea>
+                        <label for="content">Nội Dung Câu Hỏi <span class="failed">(*)</span></label>
+                    </div>
+
+                    <div class="input-field">
+                        <textarea name="answer_a" id="answer_a" class="materialize-textarea" onchange="get_val(this.id)" required></textarea>
+                        <label for="answer_a">Đáp Án A <span class="failed">(*)</span></label>
+                    </div>
+                    <div class="input-field">
+                        <textarea name="answer_b" id="answer_b" class="materialize-textarea" onchange="get_val(this.id)" required></textarea>
+                        <label for="answer_b">Đáp Án B <span class="failed">(*)</span></label>
+                    </div>
+                    <div class="input-field">
+                        <textarea name="answer_c" id="answer_c" class="materialize-textarea" onchange="get_val(this.id)" required></textarea>
+                        <label for="answer_c">Đáp Án C <span class="failed">(*)</span></label>
+                    </div>
+                    <div class="input-field">
+                        <textarea name="answer_d" id="answer_d" class="materialize-textarea" onchange="get_val(this.id)" required></textarea>
+                        <label for="answer_d">Đáp Án D <span class="failed">(*)</span></label>
+                    </div>
+                    <div class="input-field">
+                        <select name="correct_answer">
+                            <option value="" id="val_answer_a">A</option>
+                            <option value="" id="val_answer_b">B</option>
+                            <option value="" id="val_answer_c">C</option>
+                            <option value="" id="val_answer_d">D</option>
+                        </select>
+                        <label>Đáp Án Đúng</label>
+                    </div>
+                    <button type="submit" class="btn full-width" id="add-question" name="add-question">Thêm</button>
+                }
+            </div>
+            <div id="_add_via_file" class="col s12">
+                @using (Html.BeginForm("AddQuestionGY", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                {
+                    <div hidden> <input type="text" name="macd" value="@ViewBag.maCD" /></div>
+                    <div class="input-field">
+                        <textarea name="content" class="materialize-textarea" required></textarea>
+                        <label for="content">Nội Dung Câu Hỏi Góp ý Từ Khách Hàng <span class="failed">(*)</span></label>
+                    </div>
+                    <button type="submit" class="btn full-width" id="add-question" name="add-question">Thêm</button>
+                }
+                </div>
+        </div>
+    </div>
+
+    <script>
+        $('.tabs').tabs();
+        $('.modal').modal();
+        
+        $('select').select();
+        $('#checked-all').on('change', function () {
+                    if (this.checked) {
+                $('.checkbox').each(function () {
+                                this.checked = true;
+                                });
+                $('#icon-settings').addClass('hidden');
+                $('#icon-delete-all').removeClass('hidden');
+                            } else {
+                $('.checkbox').each(function () {
+                                    this.checked = false;
+                                    });
+                $('#icon-settings').removeClass('hidden');
+                $('#icon-delete-all').addClass('hidden');
+                                }
+                            });
+                            function check_box() {
+            $('#icon-delete-all').removeClass('hidden');
+                                if ($('.checkbox:checked').length == $('.checkbox').length) {
+                $('#checked-all').prop('checked', true);
+                            } else {
+                $('#checked-all').prop('checked', false);
+                            }
+                            if ($('.checkbox:checked').length == 0) {
+                $('#icon-delete-all').addClass('hidden');
+                $('#icon-settings').removeClass('hidden');
+                            } else {
+                $('#icon-settings').addClass('hidden');
+                $('#icon-delete-all').removeClass('hidden');
+                            }
+                        }
+                        function get_val(id) {
+                            var answer = $("#" + id).val();
+            $("#val_" + id).val(answer);
+                        }
+    </script>
+        }
